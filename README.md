@@ -17,6 +17,9 @@ A simple Twitter-like REST API built with Go, MySQL, and Docker.
 ## Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) (includes Docker Compose)
+
+    You must have an instance of docker running locally in your desktop before running the project.
+
 - [Git](https://git-scm.com/)
 
 ---
@@ -26,7 +29,7 @@ A simple Twitter-like REST API built with Go, MySQL, and Docker.
 ### 1. Clone the repository
 
 ```sh
-git clone <your-repo-url>
+git clone https://github.com/juaniferro/fake-twitter.git
 cd fake-twitter
 ```
 
@@ -34,7 +37,9 @@ cd fake-twitter
 
 ### 2. Environment Variables
 
-Create a `.env` file in the project root:
+Check if `.env` is already in project (basically you shouldn´t push these variables but for the sake of simpicity to try the API we will)
+
+If it is not present, create a `.env` file in the project root:
 
 ```
 DB_USER=root
@@ -71,10 +76,17 @@ docker-compose down -v
 
 #### Example Endpoints
 
+In these cases, the user_id that we pass in the Headers parameter symbolizes the user making the action. They would be the user posting a tweet, following another user (the one in the path param) and getting their timeline
+
 - **Get Timeline**
   ```
   GET /timeline
   Headers: user_id: <user_id>
+  ```
+
+  ```bash
+    curl --location 'http://localhost:8080/timeline' \
+    --header 'user_id: 4'
   ```
 
 - **Post Tweet**
@@ -84,10 +96,24 @@ docker-compose down -v
   Body (JSON): { "content": "your tweet" }
   ```
 
+  ```bash
+    curl --location 'http://localhost:8080/tweet' \
+    --header 'user_id: 1' \
+    --header 'Content-Type: application/json' \
+    --data '{
+     "content" : "tuiteando para probar :)"
+    }'
+  ```
+
 - **Follow User**
   ```
   POST /follow/{followed_user_id}
   Headers: user_id: <user_id>
+  ```
+
+  ```bash
+    curl --location --request POST 'http://localhost:8080/follow/2' \
+    --header 'user_id: 4'
   ```
 
 Use [Postman](https://www.postman.com/) or `curl` to test endpoints.
@@ -116,10 +142,24 @@ go test ./...
 
 ### 7. Troubleshooting
 
+- **Starting Docker issues:**  
+  Sometimes, there could be a failure similar to this
+  ```
+  migrate-1  | error: failed to open database: dial tcp 172.18.0.2:3306: connect: connection refused  
+  ```
+
+  if that happens, run 
+  ```sh
+  docker-compose down -v
+  ```
+  and then try again
+  ```sh
+  docker-compose up --build
+  ```
 - **Port conflicts:**  
   If port 3306 is in use, stop local MySQL or change the port mapping in `docker-compose.yml`.
 - **Reset database:**  
-  Use `docker-compose down -v` to remove all data and start fresh.
+  Use `docker-compose down -v` to remove all data and start fresh (will replicate the starting data of the migration though).
 - **.env issues:**  
   Ensure `.env` is a file (not a directory) and is in the project root.
 

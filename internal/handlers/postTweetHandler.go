@@ -9,12 +9,12 @@ import (
 	"github.com/juaniferro/fake-twitter/internal/usecases"
 )
 
-type PostTweetHandlerInterface interface{
+type PostTweetUsecaseInterface interface{
 	TweetPoster(user int, tweet string) error
 }
 
 type PostTweetHandler struct {
-	postTweetUsecase usecases.PostTweetUsecase
+	postTweetUsecase PostTweetUsecaseInterface
 }
 
 func NewPostTweetHandler(postTweetUsecase usecases.PostTweetUsecase) *PostTweetHandler{

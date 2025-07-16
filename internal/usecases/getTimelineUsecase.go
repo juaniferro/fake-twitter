@@ -6,10 +6,10 @@ import (
 )
 
 type GetTimelineUsecase struct {
-	GetTimelineService services.GetTimelineService
+	GetTimelineService GetTimelineServiceInterface
 }
 
-type GetTimelineUsecaseInterface interface{
+type GetTimelineServiceInterface interface{
 	GetTimelineCaller(user int) (tweets []models.TimelineTweet, err error) 
 }
 

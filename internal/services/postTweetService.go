@@ -3,10 +3,10 @@ package services
 import "github.com/juaniferro/fake-twitter/internal/repositories"
 
 type PostTweetService struct {
-	fakeTwitterRepo repositories.FakeTwitterRepo
+	fakeTwitterRepo PostTweetRepositoryInterface
 }
 
-type PostTweetServiceInterface interface{
+type PostTweetRepositoryInterface interface{
 	PostTweet(user int, tweet string) error
 }
 

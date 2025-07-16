@@ -7,10 +7,10 @@ import (
 )
 
 type PostTweetUsecase struct {
-	postTweetService services.PostTweetService
+	postTweetService PostTweetServiceInterface
 }
 
-type PostTweetUsecaseInterface interface{
+type PostTweetServiceInterface interface{
 	PostTweetCaller(user int, tweet string) error 
 }
 

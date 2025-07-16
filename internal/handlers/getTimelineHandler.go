@@ -9,12 +9,12 @@ import (
 	"github.com/juaniferro/fake-twitter/internal/usecases"
 )
 
-type GetTimelineHandlerInterface interface{
+type GetTimelineUsecaseInterface interface{
 	TimelineGetter(user int) (tweets []models.TimelineTweet, err error)
 }
 
 type GetTimelineHandler struct {
-	getTimelineUsecase usecases.GetTimelineUsecase
+	getTimelineUsecase GetTimelineUsecaseInterface
 }
 
 func NewGetTimelineHandler(getTimelineUsecase usecases.GetTimelineUsecase) *GetTimelineHandler{

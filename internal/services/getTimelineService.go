@@ -6,10 +6,10 @@ import (
 )
 
 type GetTimelineService struct {
-	fakeTwitterRepo repositories.FakeTwitterRepo
+	fakeTwitterRepo GetTimelineSRepositoryInterface
 }
 
-type GetTimelineServiceServiceInterface interface{
+type GetTimelineSRepositoryInterface interface{
 	GetTimeline(user int) (tweets []models.TimelineTweet, err error)
 }
 

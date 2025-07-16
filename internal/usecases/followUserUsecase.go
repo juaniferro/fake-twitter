@@ -6,10 +6,10 @@ import (
 )
 
 type FollowUserUsecase struct {
-	followUserService services.FollowUserService
+	followUserService FollowUserServiceInterface
 }
 
-type FollowUserUsecaseInterface interface{
+type FollowUserServiceInterface interface{
 	FollowUserCaller(user, followedUser int) error 
 }
 

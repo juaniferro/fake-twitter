@@ -3,10 +3,10 @@ package services
 import "github.com/juaniferro/fake-twitter/internal/repositories"
 
 type FollowUserService struct {
-	fakeTwitterRepo repositories.FakeTwitterRepo
+	fakeTwitterRepo FollowUserRepositoryInterface
 }
 
-type FollowUSerServiceInterface interface{
+type FollowUserRepositoryInterface interface{
 	FollowUser(user, followedUser int) error
 }
 

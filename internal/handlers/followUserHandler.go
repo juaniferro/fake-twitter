@@ -8,12 +8,12 @@ import (
 	"github.com/juaniferro/fake-twitter/internal/usecases"
 )
 
-type FollowUserHandlerInterface interface{
+type FollowUserUsecaseInterface interface{
 	UserFollower(user, followedUser int) error
 }
 
 type FollowUserHandler struct {
-	followUserUsecase usecases.FollowUserUsecase
+	followUserUsecase FollowUserUsecaseInterface
 }
 
 func NewFollowUserHandler(followUserUsecase usecases.FollowUserUsecase) *FollowUserHandler{

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: fake_tw_database
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./migrations:/migrations
+    entrypoint: [
+      "migrate",
+      "-path", "/migrations",
+      "-database", "mysql://root:pass@tcp(mysql:3306)/fake_tw_database",
+      "up"
+    ]
+    restart: on-failure
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+      - migrate
+    environment:
+      DB_USER: root
+      DB_PASS: pass
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: fake_tw_database
+      SHOULD_PARSE_TIME: true
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    volumes:
+      - ./.env:/app/.env
+
+volumes:
+  db_data:

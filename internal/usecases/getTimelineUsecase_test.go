@@ -9,7 +9,6 @@ import (
 	"github.com/juaniferro/fake-twitter/internal/models"
 )
 
-// Mock for GetTimelineService
 type mockGetTimelineService struct {
     response []models.TimelineTweet
     err      error

@@ -16,7 +16,7 @@ A simple Twitter-like REST API built with Go, MySQL, and Docker.
 
 ## Architecture and components used
 
-  [Download the high level architecture document (PDF)](./architecture-fake-twitter.pdf)
+  [Access the high level architecture document (PDF)](./architecture-fake-twitter.pdf)
 
 ---
 
@@ -83,6 +83,8 @@ docker-compose down -v
 #### Example Endpoints
 
 In these cases, the user_id that we pass in the Headers parameter symbolizes the user making the action. They would be the user posting a tweet, following another user (the one in the path param) and getting their timeline
+
+From the get go, there are 4 users created (user_ids: 1, 2, 3 and 4) and you can impersonate any of them to post tweets, follow the others or get the timeline. User 4 follows 1 and 3, and when they call getTimeline, they will receive the tweets from those two users. 
 
 - **Get Timeline**
   ```

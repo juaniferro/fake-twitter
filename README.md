@@ -14,6 +14,12 @@ A simple Twitter-like REST API built with Go, MySQL, and Docker.
 
 ---
 
+## Architecture and components used
+
+  [Download the high level architecture document (PDF)](./architecture-fake-twitter.pdf)
+
+---
+
 ## Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) (includes Docker Compose)
